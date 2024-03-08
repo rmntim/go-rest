@@ -1,7 +1,7 @@
 package config
 
 import (
-	"log"
+	"flag"
 	"os"
 	"time"
 
@@ -21,19 +21,32 @@ type HTTPServerConfig struct {
 }
 
 func MustLoad() *Config {
-	configPath := os.Getenv("CONFIG_PATH")
+	configPath := fetchConfigPath()
 	if configPath == "" {
-		log.Fatal("CONFIG_PATH is not set")
+		panic("config path is empty")
 	}
 
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
-		log.Fatalf("config file `%s` does not exist", configPath)
+		panic("config file doesn't exist: " + configPath)
 	}
 
 	var config Config
 	if err := cleanenv.ReadConfig(configPath, &config); err != nil {
-		log.Fatalf("failed to read config: %s", err)
+		panic("failed to read config: " + err.Error())
 	}
 
-  return &config
+	return &config
+}
+
+func fetchConfigPath() string {
+	var path string
+
+	flag.StringVar(&path, "config", "", "config file path")
+	flag.Parse()
+
+	if path == "" {
+		path = os.Getenv("CONFIG_PATH")
+	}
+
+	return path
 }
