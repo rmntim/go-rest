@@ -20,6 +20,9 @@ func main() {
 	// TODO: init logger
   logger := setupLogger(config.Env)
 
+  logger.Info("Starting url-shortener", slog.String("env", config.Env))
+  logger.Debug("Debug messages are enabled")
+
 	// TODO: init db
 
 	// TODO: init router
