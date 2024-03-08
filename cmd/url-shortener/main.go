@@ -35,7 +35,9 @@ func main() {
 	router := chi.NewRouter()
 
 	router.Use(middleware.RequestID)
-  router.Use(loggerMw.New(logger))
+	router.Use(loggerMw.New(logger))
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.URLFormat)
 
 	// TODO: init server
 }
