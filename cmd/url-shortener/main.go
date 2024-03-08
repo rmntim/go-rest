@@ -16,16 +16,13 @@ const (
 )
 
 func main() {
-	// TODO: init config
 	config := config.MustLoad()
 
-	// TODO: init logger
   logger := setupLogger(config.Env)
 
   logger.Info("Starting url-shortener", slog.String("env", config.Env))
   logger.Debug("Debug messages are enabled")
 
-	// TODO: init db
   storage, err := sqlite.New(config.StoragePath)
   if err != nil {
     logger.Error("failed to init storage", sl.Err(err))
