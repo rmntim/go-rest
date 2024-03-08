@@ -18,16 +18,16 @@ const (
 func main() {
 	config := config.MustLoad()
 
-  logger := setupLogger(config.Env)
+	logger := setupLogger(config.Env)
 
-  logger.Info("Starting url-shortener", slog.String("env", config.Env))
-  logger.Debug("Debug messages are enabled")
+	logger.Info("Starting url-shortener", slog.String("env", config.Env))
+	logger.Debug("Debug messages are enabled")
 
-  storage, err := sqlite.New(config.StoragePath)
-  if err != nil {
-    logger.Error("failed to init storage", sl.Err(err))
-    os.Exit(1)
-  }
+	storage, err := sqlite.New(config.StoragePath)
+	if err != nil {
+		logger.Error("failed to init storage", sl.Err(err))
+		os.Exit(1)
+	}
 
 	// TODO: init router
 
@@ -40,10 +40,10 @@ func setupLogger(env string) *slog.Logger {
 	switch env {
 	case envLocal:
 		logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
-  case envDev:
-    logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
-  case envProd:
-    logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
+	case envDev:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
+	case envProd:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 	}
 
 	return logger
