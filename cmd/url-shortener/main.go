@@ -4,7 +4,10 @@ import (
 	"log/slog"
 	"os"
 
+	chi "github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rmntim/go-url-shortener/internal/config"
+	"github.com/rmntim/go-url-shortener/internal/http-server/middleware/logger"
 	"github.com/rmntim/go-url-shortener/internal/lib/logger/sl"
 	"github.com/rmntim/go-url-shortener/internal/storage/sqlite"
 )
@@ -18,18 +21,21 @@ const (
 func main() {
 	config := config.MustLoad()
 
-	logger := setupLogger(config.Env)
+	log := setupLogger(config.Env)
 
-	logger.Info("Starting url-shortener", slog.String("env", config.Env))
-	logger.Debug("Debug messages are enabled")
+	log.Info("Starting url-shortener", slog.String("env", config.Env))
+	log.Debug("Debug messages are enabled")
 
 	storage, err := sqlite.New(config.StoragePath)
 	if err != nil {
-		logger.Error("failed to init storage", sl.Err(err))
+		log.Error("failed to init storage", sl.Err(err))
 		os.Exit(1)
 	}
 
-	// TODO: init router
+	router := chi.NewRouter()
+
+	router.Use(middleware.RequestID)
+  router.Use(logger.New(log))
 
 	// TODO: init server
 }
