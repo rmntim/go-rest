@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"github.com/rmntim/go-url-shortener/internal/config"
+	"github.com/rmntim/go-url-shortener/internal/lib/logger/sl"
+	"github.com/rmntim/go-url-shortener/internal/storage/sqlite"
 )
 
 const (
@@ -24,6 +26,11 @@ func main() {
   logger.Debug("Debug messages are enabled")
 
 	// TODO: init db
+  storage, err := sqlite.New(config.StoragePath)
+  if err != nil {
+    logger.Error("failed to init storage", sl.Err(err))
+    os.Exit(1)
+  }
 
 	// TODO: init router
 
