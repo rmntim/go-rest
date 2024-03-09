@@ -17,6 +17,7 @@ import (
 // NOTE: maybe should be moved in config
 const aliasLength = 8
 
+//go:generate go run github.com/vektra/mockery/v2@v2.42.0 --name=URLSaver
 type URLSaver interface {
 	SaveURL(urlToSave string, alias string) (int64, error)
 }
