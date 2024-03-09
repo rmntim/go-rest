@@ -7,12 +7,16 @@ import (
 
 type DiscardHandler struct{}
 
+func NewDiscardLogger() *slog.Logger {
+	return slog.New(NewDiscardHandler())
+}
+
 func NewDiscardHandler() *DiscardHandler {
 	return &DiscardHandler{}
 }
 
 func (h *DiscardHandler) Enabled(_ context.Context, _ slog.Level) bool {
-	return true
+	return false
 }
 
 func (h *DiscardHandler) Handle(_ context.Context, _ slog.Record) error {
