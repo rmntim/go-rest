@@ -52,11 +52,11 @@ func main() {
 		IdleTimeout:  config.IdleTimeout,
 	}
 
-  if err := srv.ListenAndServe(); err != nil {
-    logger.Error("failed to start server")
-  }
+	if err := srv.ListenAndServe(); err != nil {
+		logger.Error("failed to start server")
+	}
 
-  logger.Error("server stopped")
+	logger.Error("server stopped")
 }
 
 func setupLogger(env string) *slog.Logger {
