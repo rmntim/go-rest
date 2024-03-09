@@ -14,6 +14,9 @@ const (
 )
 var src = rand.NewSource(time.Now().UnixNano())
 
+// NewRandomString uses some smart masking tomfoolery,
+// that I don't really understand, but (as a good developer) I can provide the source 
+// https://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-go
 func NewRandomString(n int) string {
   sb := strings.Builder{}
   sb.Grow(n)
