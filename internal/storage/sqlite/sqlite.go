@@ -102,7 +102,7 @@ func (s *Storage) DeleteURL(alias string) error {
 		return fmt.Errorf("%s: %w", op, err)
 	}
 
-	res, err := stmt.Exec()
+	res, err := stmt.Exec(alias)
 	if err != nil {
 		return fmt.Errorf("%s: %w", op, err)
 	}
