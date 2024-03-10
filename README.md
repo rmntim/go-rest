@@ -1,3 +1,3 @@
 # go-rest
 
-Go REST api with (almost) no dependencies
+Go REST api with [go-chi](https://github.com/go-chi/chi)
