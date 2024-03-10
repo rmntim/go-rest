@@ -8,6 +8,7 @@ import (
 	chi "github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rmntim/go-url-shortener/internal/config"
+	del "github.com/rmntim/go-url-shortener/internal/http-server/handlers/delete"
 	"github.com/rmntim/go-url-shortener/internal/http-server/handlers/redirect"
 	"github.com/rmntim/go-url-shortener/internal/http-server/handlers/url/save"
 	loggerMw "github.com/rmntim/go-url-shortener/internal/http-server/middleware/logger"
@@ -44,6 +45,7 @@ func main() {
 
 	router.Post("/url", save.New(logger, storage))
 	router.Get("/{alias}", redirect.New(logger, storage))
+	router.Delete("/{alias}", del.New(logger, storage))
 
 	logger.Info("starting server", slog.String("address", config.Address))
 	srv := &http.Server{
