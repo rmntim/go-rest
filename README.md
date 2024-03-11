@@ -13,6 +13,6 @@ or with `--config` argument
 ## TODO
 
 - [ ] implement PostgreSQL storage
-- [ ] add Dockerfile (+ compose?)
+- [x] add Dockerfile (+ compose?)
 - [ ] add docs for endpoints
 - [ ] add auth?
