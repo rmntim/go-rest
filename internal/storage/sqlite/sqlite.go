@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/mattn/go-sqlite3"
-	_ "github.com/mattn/go-sqlite3" // init sqlite3 driver
 	"github.com/rmntim/go-url-shortener/internal/storage"
 )
 
