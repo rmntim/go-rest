@@ -5,9 +5,10 @@ Go REST api with [go-chi](https://github.com/go-chi/chi)
 ## Usage
 
 1. Build the project
-2. Run it, specifying the config path either in environment variable `CONFIG_Path`
+2. Set the `HTTP_SERVER_PASSWORD` environment variable
+3. Run it, specifying the config path either in environment variable `CONFIG_PATH`
 or with `--config` argument
-3. It works!
+4. It works!
 
 ## TODO
 
