@@ -7,7 +7,7 @@ import (
 
 	chi "github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/rmntim/go-url-shortener/internal/config"
+	cfg "github.com/rmntim/go-url-shortener/internal/config"
 	del "github.com/rmntim/go-url-shortener/internal/http-server/handlers/delete"
 	"github.com/rmntim/go-url-shortener/internal/http-server/handlers/redirect"
 	"github.com/rmntim/go-url-shortener/internal/http-server/handlers/url/save"
@@ -23,7 +23,7 @@ const (
 )
 
 func main() {
-	config := config.MustLoad()
+	config := cfg.MustLoad()
 
 	logger := setupLogger(config.Env)
 
@@ -43,9 +43,17 @@ func main() {
 	router.Use(middleware.Recoverer)
 	router.Use(middleware.URLFormat)
 
-	router.Post("/url", save.New(logger, storage))
+	// FIXME: not using proper auth middleware, should be JWT or smth
+	router.Route("/url", func(r chi.Router) {
+		r.Use(middleware.BasicAuth("url-shortener", map[string]string{
+			config.User: config.Password,
+		}))
+
+		r.Post("/", save.New(logger, storage))
+		r.Delete("/{alias}", del.New(logger, storage))
+	})
+
 	router.Get("/{alias}", redirect.New(logger, storage))
-	router.Delete("/{alias}", del.New(logger, storage))
 
 	logger.Info("starting server", slog.String("address", config.Address))
 	srv := &http.Server{
