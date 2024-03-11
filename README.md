@@ -13,4 +13,5 @@ or with `--config` argument
 
 - [ ] implement PostgreSQL storage
 - [ ] add Dockerfile (+ compose?)
+- [ ] add docs for endpoints
 - [ ] add auth?
