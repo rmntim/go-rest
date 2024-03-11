@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    environment:
+      CONFIG_PATH: /app/config.yaml
+      HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}
+    networks:
+      - backend
+
+networks:
+  backend:
