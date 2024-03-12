@@ -7,8 +7,4 @@ services:
         container_name: ${IMAGE_REPO}-app
         environment:
             VIRTUAL_HOST: ${HOST_DOMAIN}
-        networks:
-            - backend
-
-networks:
-  backend:
+            HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}
