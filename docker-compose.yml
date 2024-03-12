@@ -1,18 +1,12 @@
-version: "3"
-
+version: "3.9"
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
-    restart: unless-stopped
-    environment:
-      CONFIG_PATH: /app/config.yaml
-      HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}
-    networks:
-      - backend
-
-networks:
-  backend:
+    app:
+        build: .
+        restart: unless-stopped
+        ports:
+            - "8081:8081"
+        environment:
+            VIRTUAL_HOST: ${HOST_DOMAIN}
+            LETSENCRYPT_HOST: ${HOST_DOMAIN}
+            CONFIG_PATH: ${CONFIG_PATH}
+            HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}

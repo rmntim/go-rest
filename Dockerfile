@@ -30,7 +30,5 @@ WORKDIR /app
 COPY --from=builder /app/server /app/server
 COPY --from=builder /app/config/prod.yaml /app/config.yaml
 
-EXPOSE 8081
-
 # Run the web service on container startup.
 CMD ["/app/server"]
