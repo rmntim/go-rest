@@ -1,3 +1,2 @@
-*.db
-config/local.yaml
+**/*.db
 **/.env

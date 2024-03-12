@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+    app:
+        build:
+          context: .
+          dockerfile: Dockerfile.local
+        container_name: go-rest-app
+        restart: unless-stopped
+        ports:
+            - "8081:8081"
+        environment:
+            CONFIG_PATH: ${CONFIG_PATH}
