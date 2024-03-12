@@ -44,7 +44,7 @@ func main() {
 	router.Use(middleware.URLFormat)
 
 	// FIXME: not using proper auth middleware, should be JWT or smth
-	router.Route("/url", func(r chi.Router) {
+	router.Route("/api/url", func(r chi.Router) {
 		r.Use(middleware.BasicAuth("url-shortener", map[string]string{
 			config.User: config.Password,
 		}))
