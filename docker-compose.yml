@@ -1,7 +1,8 @@
 version: "3.9"
 services:
     app:
-        build: .
+        image: ghcr.io/${IMAGE_REPO}:${RELEASE_VERSION}
+        container_name: go-rest-app
         restart: unless-stopped
         ports:
             - "8081:8081"
