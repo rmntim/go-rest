@@ -2,9 +2,4 @@ version: "3.9"
 services:
     app:
         image: ghcr.io/${IMAGE_REPO}:${RELEASE_VERSION}
-        restart: unless-stopped
-        ports: !reset ["8081"]
         container_name: go-rest-app
-        environment:
-            VIRTUAL_HOST: ${HOST_DOMAIN}
-            HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}

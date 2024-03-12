@@ -6,6 +6,5 @@ services:
         ports:
             - "8081:8081"
         environment:
-            VIRTUAL_HOST: ${HOST_DOMAIN}
             CONFIG_PATH: ${CONFIG_PATH}
             HTTP_SERVER_PASSWORD: ${HTTP_SERVER_PASSWORD}
