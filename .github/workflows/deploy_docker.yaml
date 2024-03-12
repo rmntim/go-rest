@@ -39,7 +39,6 @@ jobs:
       - name: Env variable assignment
         run: |
           echo "image_repository_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-          echo "CONFIG_PATH=config.yaml" >> $GITHUB_ENV
 
       # TAG_NAME defaults to 'latest' if not a release or manual deployment
       - name: Assign version
@@ -87,6 +86,7 @@ jobs:
       - name: repository name fix and env
         run: |
           echo "image_repository_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "CONFIG_PATH=config.yaml" >> $GITHUB_ENV
           echo "domain=${{ secrets.DEPLOY_HOST }}" >> $GITHUB_ENV
           echo "TAG_NAME=latest" >> $GITHUB_ENV
           if [ "${{ github.event.release.tag_name }}" != "" ]; then
